@@ -18,5 +18,9 @@ app.config['MAIL_USE_SSL'] = MAIL_USE_SSL
 # Initialize Firebase
 firebase = initialize_app(credentials.Certificate('firebase-key.json'))
 
+@app.route('/')
+def hello():
+    return 'Hello World'
+
 if __name__ == '__main__':
     app.run()
