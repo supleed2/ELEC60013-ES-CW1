@@ -2,10 +2,13 @@ from config.variables import MAIL_SERVER, MAIL_PORT, MAIL_USERNAME, MAIL_PASSWOR
 from flask import Flask
 from firebase_admin import credentials, initialize_app
 from api.authentication import authentication
+from api.data import data
 
 # Initialize Flask app and register all the endpoints
 app = Flask(__name__)
 app.register_blueprint(authentication)
+app.register_blueprint(data)
+
 
 # Initialize Mail instance
 app.config['MAIL_SERVER'] = MAIL_SERVER
