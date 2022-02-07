@@ -1,6 +1,5 @@
 import json
 import lib.utils
-from random import randint
 from flask import Response, Blueprint, request
 from firebase_admin import firestore, auth
 from firebase_admin._auth_utils import EmailAlreadyExistsError
