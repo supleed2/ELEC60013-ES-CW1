@@ -10,7 +10,8 @@ authentication = Blueprint('authentication', __name__)
 def register():
     body = request.json
     if body is None:
-        return Response("{'error':'Invalid request - please provide a body'}", status=400, mimetype='application/json')
+        resp = {'error': 'Invalid request - please provide a body'}
+        return Response(json.dumps(resp), status=400, mimetype='application/json')
 
     email = body['email']
     password = body['password']
@@ -19,7 +20,8 @@ def register():
 
     # Some fields are not present
     if email is None or password is None or name is None or deviceId is None:
-        return Response("{'error':'Entries missing'}", status=400, mimetype='application/json')
+        resp = {'error': 'Entries missing'}
+        return Response(json.dumps(resp), status=400, mimetype='application/json')
 
     # Register user with Firebase authentication
     try:
@@ -30,8 +32,8 @@ def register():
             display_name=name,
             disabled=False)
     except EmailAlreadyExistsError:
-        return Response("{'error':'User with given email address already exists'}", status=409, mimetype='application/json')
-
+        resp = {'error': 'User with given email address already exists'}
+        return Response(json.dumps(resp), status=409, mimetype='application/json')
     # Prompt the user to get verified
     code = lib.utils.saveVerificationCode(user.uid)
     lib.utils.sendVerificationMail(name, email, code)
@@ -50,7 +52,8 @@ def register():
 def verify():
     body = request.json
     if body is None:
-        return Response("{'error':'Invalid request - please provide a body'}", status=400, mimetype='application/json')
+        resp = {'error': 'Invalid request - please provide a body'}
+        return Response(json.dumps(resp), status=400, mimetype='application/json')
 
     uid = body['uid']
     code = body['code']
@@ -60,12 +63,14 @@ def verify():
         if doc.to_dict()['code'] == code:
             auth.update_user(uid, email_verified=True)
             firestore.client().collection(u'verification').document(uid).delete()
-            return Response("{'error':'User verified'}", status=200, mimetype='application/json')
+            resp = {'success': 'User verified'}
+            return Response(json.dumps(resp), status=200, mimetype='application/json')
         else:
-            return Response("{'error':'Invalid code'}", status=400, mimetype='application/json')
+            resp = {'error': 'Invalid code'}
+            return Response(json.dumps(resp), status=400, mimetype='application/json')
     else:
         user = auth.get_user(uid)
         code = lib.utils.saveVerificationCode(user.uid)
         lib.utils.sendVerificationMail(user.display_name, user.email, code)
-        return Response("{'error':'Server couldn't find code, creating new one and sending email'}", status=500, mimetype='application/json')
-
+        resp = {'error': 'Server could not find code, creating new one and sending email'}
+        return Response(json.dumps(resp), status=500, mimetype='application/json')

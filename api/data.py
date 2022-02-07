@@ -3,18 +3,19 @@ import json
 from flask import Response, Blueprint, request
 from firebase_admin import firestore
 
-
 data = Blueprint('data', __name__)
 
 @data.route('/readings/save', methods=['POST'])
 def uploadReadings():
     deviceId = request.headers.get('deviceid')
     if deviceId is None:
-        return Response("{'error':'Device not specified'}", status=400, mimetype='application/json')
+        resp = {'error': 'Device not specified'}
+        return Response(json.dumps(resp), status=400, mimetype='application/json')
 
     body = request.json
     if body is None:
-        return Response("{'error':'Invalid request - please provide a body'}", status=400, mimetype='application/json')
+        resp = {'error': 'Invalid request - please provide a body'}
+        return Response(json.dumps(resp), status=400, mimetype='application/json')
     body['timestamp'] = time.time()
 
     doc = firestore.client().collection(u'readings').document(deviceId).get()
@@ -27,13 +28,15 @@ def uploadReadings():
 
     upload = {'data': data}
     firestore.client().collection(u'readings').document(deviceId).set(upload)
-    return Response("{'success':'Data saved'}", status=200, mimetype='application/json')
+    resp = {'success': 'Data saved'}
+    return Response(json.dumps(resp), status=200, mimetype='application/json')
 
 @data.route('/readings/getall', methods=['GET'])
 def getAllReadings():
     deviceId = request.headers.get('deviceid')
     if deviceId is None:
-        return Response("{'error':'Device not specified'}", status=400, mimetype='application/json')
+        resp = {'error': 'Device not specified'}
+        return Response(json.dumps(resp), status=400, mimetype='application/json')
 
     doc = firestore.client().collection(u'readings').document(deviceId).get()
     if doc.exists:
