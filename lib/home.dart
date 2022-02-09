@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:leg_barkr_app/data.dart';
-import 'package:leg_barkr_app/steps.dart';
-import 'package:leg_barkr_app/map.dart';
-import 'package:leg_barkr_app/settings.dart';
+import 'package:leg_barkr_app/view/steps/steps_page.dart';
+import 'package:leg_barkr_app/view/data_page.dart';
+import 'package:leg_barkr_app/view/map_page.dart';
+import 'package:leg_barkr_app/view/settings_page.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -25,6 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: PageView(
         controller: _pageController,
         children: const <Widget>[
