@@ -2,6 +2,7 @@ import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
 import 'package:leg_barkr_app/model/steps_series.dart';
 import 'package:leg_barkr_app/view/steps/steps_chart.dart';
+import 'package:leg_barkr_app/view/steps/steps_today.dart';
 
 class StepsPage extends StatefulWidget {
   const StepsPage({ Key? key }) : super(key: key);
@@ -25,12 +26,15 @@ class _StepsPageState extends State<StepsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: StepsChart(data)
-        ),
-      ),
+    return Padding(
+      padding: EdgeInsets.fromLTRB(0.0, 50.0, 10.0, 0.0),
+      child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            StepsToday(5123),
+            new Expanded(child: StepsChart(data))
+          ],
+      )
     );
   }
 }

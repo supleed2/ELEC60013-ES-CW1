@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:leg_barkr_app/home.dart';
+import 'package:flutter/services.dart';
 
 void main() {
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(statusBarColor: Colors.black12));
   runApp(const Main());
 }
 

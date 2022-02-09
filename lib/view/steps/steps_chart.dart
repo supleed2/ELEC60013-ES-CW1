@@ -3,7 +3,7 @@ import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:leg_barkr_app/model/steps_series.dart';
 
 class StepsChart extends StatelessWidget {
-  final List<StepsSeries> data;
+  List<StepsSeries> data;
 
   StepsChart(this.data);
 
@@ -19,7 +19,11 @@ class StepsChart extends StatelessWidget {
       )
     ];
 
-    return new charts.BarChart(series, animate: true,);
+    return Container(
+      height: 600,
+      width: double.infinity,
+      child: charts.BarChart(series, animate: true)
+    );
   }
 
 }
