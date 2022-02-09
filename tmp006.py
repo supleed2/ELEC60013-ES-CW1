@@ -26,8 +26,8 @@ class TMP006:
         self.samplerate = samplerate
         i2cBus.pec = True  # enable smbus2 Packet Error Checking
         self.config = bytes([0x00, 0x00])
-        self.config = (
-            self.config[0] | samplerate[0] | _MODE_ON[0] | _DRDY_EN[0] + self.config[1]
+        self.config = bytes(
+            [self.config[0] | samplerate[0] | _MODE_ON[0] | _DRDY_EN[0], self.config[1]]
         )
         ptrConfig = smbus2.i2c_msg.write(self.addr, _REG_CNFG)
         writeConfig = smbus2.i2c_msg.write(self.addr, self.config)
@@ -63,7 +63,7 @@ class TMP006:
         ptrPower = smbus2.i2c_msg.write(self.addr, _REG_CNFG)
         power = smbus2.i2c_msg.read(self.addr, 2)
         self.i2c.i2c_rdwr(ptrPower, power)
-        return power.buf[0] & _MODE_ON[0] != 0
+        return power.buf[0][0] & _MODE_ON[0] != 0
 
     @active.setter
     def active(self, value: bool):
@@ -72,14 +72,14 @@ class TMP006:
             ptrPower = smbus2.i2c_msg.write(self.addr, _REG_CNFG)
             power = smbus2.i2c_msg.read(self.addr, 2)
             self.i2c.i2c_rdwr(ptrPower, power)
-            newPower = power.buf[0] | _MODE_ON[0] + power.buf[1]
+            newPower = bytes([power.buf[0][0] | _MODE_ON[0], power.buf[1][0]])
             updatePower = smbus2.i2c_msg.write(self.addr, newPower)
             self.i2c.i2c_rdwr(ptrPower, updatePower)
         else:
             ptrPower = smbus2.i2c_msg.write(self.addr, _REG_CNFG)
             power = smbus2.i2c_msg.read(self.addr, 2)
             self.i2c.i2c_rdwr(ptrPower, power)
-            newPower = power.buf[0] & ~_MODE_ON[0] + power.buf[1]
+            newPower = bytes([power.buf[0][0] & ~_MODE_ON[0], power.buf[1][0]])
             updatePower = smbus2.i2c_msg.write(self.addr, newPower)
             self.i2c.i2c_rdwr(ptrPower, updatePower)
 
