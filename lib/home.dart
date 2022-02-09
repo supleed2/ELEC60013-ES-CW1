@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:leg_barkr_app/data.dart';
 import 'package:leg_barkr_app/steps.dart';
-import 'package:leg_barkr_app/map.dart';
-import 'package:leg_barkr_app/settings.dart';
+import 'package:leg_barkr_app/view/data.dart';
+import 'package:leg_barkr_app/view/map.dart';
+import 'package:leg_barkr_app/view/settings.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);

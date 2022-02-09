@@ -5,6 +5,10 @@ class StepsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text("Data Page");
+    return Scaffold(
+      body: Center(
+        child: Text("Steps Page"),
+      ),
+    );
   }
 }
