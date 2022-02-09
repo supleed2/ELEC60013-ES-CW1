@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:leg_barkr_app/data.dart';
+import 'package:leg_barkr_app/steps.dart';
+import 'package:leg_barkr_app/map.dart';
+import 'package:leg_barkr_app/settings.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -8,21 +12,27 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int page = 0;
-  PageController pageController = PageController();
+  int _page = 0;
+  PageController _pageController = PageController();
 
-  void onBottomBarPressed(int newPage) {
+  void onBottomBarPressed(int page) {
     setState(() {
-      page = newPage;
+      _page = page;
     });
-    pageController.jumpToPage(newPage);
+    _pageController.jumpToPage(page);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: PageView(
-        controller: pageController,
+        controller: _pageController,
+        children: const <Widget>[
+          DataPage(),
+          StepsPage(),
+          MapPage(),
+          SettingsPage()
+        ],
       ),
       bottomNavigationBar: BottomNavigationBar(
           items: const <BottomNavigationBarItem>[
@@ -31,9 +41,11 @@ class _HomeScreenState extends State<HomeScreen> {
             BottomNavigationBarItem(icon: Icon(Icons.location_on_outlined), label: 'Location'),
             BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Settings'),
           ],
-          currentIndex: page,
+          currentIndex: _page,
         selectedItemColor: Colors.green,
         unselectedItemColor: Colors.black,
+        showSelectedLabels: true,
+        showUnselectedLabels: false,
         backgroundColor: Colors.white,
         onTap: onBottomBarPressed,
         type: BottomNavigationBarType.fixed,
