@@ -14,7 +14,7 @@ print(temphumsensor.humidity)  # read the humidity and print
 
 print("========== Testing TMP006 ==========")
 irtempsensor = tmp006.TMP006(bus, 0x41, tmp006.SAMPLERATE_4HZ)  # set up TMP006 sensor
-irtempsensor.active(1)  # turn on the sensor
+irtempsensor.active = 1  # turn on the sensor
 sleep(1)  # wait for sensor to turn on
 print(irtempsensor.manID)  # read the manufacturer ID and print
 print(irtempsensor.devID)  # read the device ID and print
