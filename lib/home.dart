@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:leg_barkr_app/view/steps_page.dart';
+import 'package:leg_barkr_app/view/steps/steps_page.dart';
 import 'package:leg_barkr_app/view/data_page.dart';
 import 'package:leg_barkr_app/view/map_page.dart';
 import 'package:leg_barkr_app/view/settings_page.dart';
