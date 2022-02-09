@@ -4,6 +4,10 @@
         android:label="leg_barkr_app"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+
+       <meta-data android:name="com.google.android.geo.API_KEY"
+           android:value="AIzaSyDzQFpqa2XFmVSHmBFNjuQ37iFcku9imF4"/>
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
