@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:leg_barkr_app/view/metrics/metrics_page.dart';
 import 'package:leg_barkr_app/view/steps/steps_page.dart';
-import 'package:leg_barkr_app/view/data_page.dart';
 import 'package:leg_barkr_app/view/map_page.dart';
 import 'package:leg_barkr_app/view/settings_page.dart';
 
@@ -29,16 +29,21 @@ class _HomeScreenState extends State<HomeScreen> {
       body: PageView(
         controller: _pageController,
         children: const <Widget>[
-          DataPage(),
+          MetricsPage(),
           StepsPage(),
           MapPage(),
           SettingsPage()
         ],
+        onPageChanged: (page) {
+          setState(() {
+            _page = page;
+          });
+        },
       ),
       bottomNavigationBar: BottomNavigationBar(
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(icon: Icon(Icons.data_usage), label: 'Home'),
-            BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
+            BottomNavigationBarItem(icon: Icon(Icons.pets), label: 'Steps'),
             BottomNavigationBarItem(icon: Icon(Icons.location_on_outlined), label: 'Location'),
             BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Settings'),
           ],

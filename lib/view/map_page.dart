@@ -11,7 +11,7 @@ class MapPage extends StatefulWidget {
 class _MapPageState extends State<MapPage> {
   late GoogleMapController _mapController;
 
-  // This will be changed, to center around the dog (once app reads data from the server)
+  // This will be changed, to center around the dog (once app reads metrics from the server)
   final LatLng _center = const LatLng(51.498356, -0.176894);
 
   void _onMapCreated(GoogleMapController mapController) {

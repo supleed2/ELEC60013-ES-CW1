@@ -1,4 +1,3 @@
-import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
 import 'package:leg_barkr_app/model/steps_series.dart';
 import 'package:leg_barkr_app/view/steps/steps_chart.dart';
@@ -12,7 +11,7 @@ class StepsPage extends StatefulWidget {
 }
 
 class _StepsPageState extends State<StepsPage> {
-  // Dummy data
+  // Dummy metrics
   final List<StepsSeries> data = [
     StepsSeries(DateTime.utc(2022, 2, 9), 9867),
     StepsSeries(DateTime.utc(2022, 2, 8), 8123),
