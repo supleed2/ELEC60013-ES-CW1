@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:leg_barkr_app/view/auth/register_form.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:leg_barkr_app/view/metrics/metrics_page.dart';
 import 'package:leg_barkr_app/view/steps/steps_page.dart';
 import 'package:leg_barkr_app/view/map_page.dart';
@@ -16,6 +16,16 @@ class _HomeScreenState extends State<HomeScreen> {
   int _page = 0;
   PageController _pageController = PageController();
 
+  _HomeScreenState(){
+    FirebaseAuth.instance
+        .authStateChanges()
+        .listen((User? user) {
+            if (user == null) {
+              Navigator.pushNamed(context, "/login");
+            }
+    });
+  }
+
   void onBottomBarPressed(int page) {
     setState(() {
       _page = page;
@@ -30,8 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
       body: PageView(
         controller: _pageController,
         children: const <Widget>[
-          RegisterForm(),   // Purely for testing purposes.
-          //MetricsPage(),
+          MetricsPage(),
           StepsPage(),
           MapPage(),
           SettingsPage()

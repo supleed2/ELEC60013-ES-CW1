@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:leg_barkr_app/home.dart';
 import 'package:leg_barkr_app/utils/endpoints.dart' as Endpoints;
+import 'package:leg_barkr_app/view/auth/login_form.dart';
 
 class RegisterForm extends StatefulWidget {
   const RegisterForm({Key? key}) : super(key: key);
@@ -47,7 +48,7 @@ class _RegisterFormState extends State<RegisterForm> {
       }),
     );
     if (response.statusCode == 201){
-      Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
+      Navigator.push(context, MaterialPageRoute(builder: (context) => LoginForm()));
     } else if (response.statusCode == 400){
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Fields missing!")));
     } else if (response.statusCode == 409){
@@ -204,8 +205,9 @@ class _RegisterFormState extends State<RegisterForm> {
 
     );
 
-    return SafeArea(
-        child: SingleChildScrollView(
+    return Scaffold(
+      appBar: null,
+      body: SingleChildScrollView(
           child: Form(
             key: _formKey,
             child:Container(
