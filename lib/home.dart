@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:leg_barkr_app/view/auth/register_form.dart';
 import 'package:leg_barkr_app/view/metrics/metrics_page.dart';
 import 'package:leg_barkr_app/view/steps/steps_page.dart';
 import 'package:leg_barkr_app/view/map_page.dart';
@@ -29,7 +30,8 @@ class _HomeScreenState extends State<HomeScreen> {
       body: PageView(
         controller: _pageController,
         children: const <Widget>[
-          MetricsPage(),
+          RegisterForm(),   // Purely for testing purposes.
+          //MetricsPage(),
           StepsPage(),
           MapPage(),
           SettingsPage()
