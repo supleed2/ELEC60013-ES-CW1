@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:leg_barkr_app/view/metrics/metrics_page.dart';
 import 'package:leg_barkr_app/view/steps/steps_page.dart';
 import 'package:leg_barkr_app/view/map_page.dart';
@@ -14,6 +15,16 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int _page = 0;
   PageController _pageController = PageController();
+
+  _HomeScreenState(){
+    FirebaseAuth.instance
+        .authStateChanges()
+        .listen((User? user) {
+            if (user == null) {
+              Navigator.pushNamed(context, "/login");
+            }
+    });
+  }
 
   void onBottomBarPressed(int page) {
     setState(() {
