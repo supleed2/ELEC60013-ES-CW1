@@ -46,3 +46,41 @@ def getAllReadings():
 
     results = {'data': data}
     return Response(json.dumps(results), status=200, mimetype='application/json')
+
+@data.route('/readings/last/location', methods=['GET'])
+def getLastLocation():
+    deviceId = request.headers.get('deviceid')
+    if deviceId is None:
+        resp = {'error': 'Device not specified'}
+        return Response(json.dumps(resp), status=400, mimetype='application/json')
+
+    doc = firestore.client().collection(u'readings').document(deviceId).get()
+    if doc.exists:
+        data = doc.to_dict()['data']
+        lastEntry = data[-1]
+        lat = lastEntry['latitude']
+        lon = lastEntry['longitude']
+    else:
+        lat = -1.0
+        lon = -1.0
+
+    results = {'latitude': lat, 'longitude': lon}
+    return Response(json.dumps(results), status=200, mimetype='application/json')
+
+@data.route('/readings/last/steps', methods=['GET'])
+def getStepsToday():
+    deviceId = request.headers.get('deviceid')
+    if deviceId is None:
+        resp = {'error': 'Device not specified'}
+        return Response(json.dumps(resp), status=400, mimetype='application/json')
+
+    doc = firestore.client().collection(u'readings').document(deviceId).get()
+    if doc.exists:
+        data = doc.to_dict()['data']
+        lastEntry = data[-1]
+        steps = lastEntry['cumulative_steps_today']
+    else:
+        steps = 0
+
+    results = {'cumulative_steps_today': steps}
+    return Response(json.dumps(results), status=200, mimetype='application/json')
