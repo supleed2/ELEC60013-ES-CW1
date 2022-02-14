@@ -15,32 +15,22 @@ class _MapPageState extends State<MapPage> {
 
   Future<void> _onMapCreated(GoogleMapController controller) async {
     _mapController = controller;
-    final lastLocation = await MapService().getLastLocation("132-567-001"); // change this.
+    final lastLocation = await MapService().getPetLastLocation("132-567-001"); // change this.
     final myLocation = await MapService().getMyLocation();
-    print(myLocation.latitude);
     setState(() {
       _markers.clear();
-      if (lastLocation.latitude!=-1.0 && lastLocation.latitude!=-1.0){
-        final petMarker = Marker(
-          markerId: MarkerId("pet_location"),
-          position: LatLng(lastLocation.latitude, lastLocation.longitude),
-          infoWindow: InfoWindow(
-            title: "Pet location",
-          ),
-        );
-        _markers["pet_location"] = petMarker;
-      }
+      final petMarker = Marker(
+        markerId: MarkerId("pet_location"),
+        position: LatLng(lastLocation.latitude, lastLocation.longitude),
+        infoWindow: InfoWindow(title: "Pet location"));
 
-      if (myLocation.latitude!=-1.0 && myLocation.longitude!=-1.0){
-        final myMarker = Marker(
-          markerId: MarkerId("my_location"),
-          position: LatLng(myLocation.latitude, myLocation.longitude),
-          infoWindow: InfoWindow(
-            title: "My location",
-          ),
-        );
-        _markers["my_location"] = myMarker;
-      }
+      final myMarker = Marker(
+        markerId: MarkerId("my_location"),
+        position: LatLng(myLocation.latitude, myLocation.longitude),
+        infoWindow: InfoWindow(title: "My location"));
+
+      _markers["pet_location"] = petMarker;
+      _markers["my_location"] = myMarker;
       _mapController.animateCamera(CameraUpdate.newLatLng(LatLng(myLocation.latitude, myLocation.longitude)));
     });
   }
