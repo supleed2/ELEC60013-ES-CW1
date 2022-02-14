@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:leg_barkr_app/view/metrics/metrics_page.dart';
 import 'package:leg_barkr_app/view/steps/steps_page.dart';
-import 'package:leg_barkr_app/view/map_page.dart';
+import 'package:leg_barkr_app/view/map/map_page.dart';
 import 'package:leg_barkr_app/view/settings_page.dart';
 
 class HomeScreen extends StatefulWidget {
