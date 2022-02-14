@@ -11,7 +11,18 @@ class StepsService {
         'deviceid': deviceId,
       },
     );
-    print(jsonDecode(response.body)['cumulative_steps_today']);
     return jsonDecode(response.body)['cumulative_steps_today'];
+  }
+
+  Future<List<dynamic>> getStepsLastFiveDays(deviceId) async {
+    final response = await http.get(
+      Uri.parse(Endpoints.getStepsLastFiveDays),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'deviceid': deviceId,
+      },
+    );
+    print(jsonDecode(response.body)['daily_steps'].runtimeType);
+    return jsonDecode(response.body)['daily_steps'];
   }
 }

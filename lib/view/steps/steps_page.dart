@@ -12,36 +12,39 @@ class StepsPage extends StatefulWidget {
 }
 
 class _StepsPageState extends State<StepsPage> {
-  // Dummy metrics
-  final List<StepsSeries> data = [
-    StepsSeries(DateTime.utc(2022, 2, 9), 9867),
-    StepsSeries(DateTime.utc(2022, 2, 8), 8123),
-    StepsSeries(DateTime.utc(2022, 2, 7), 10234),
-    StepsSeries(DateTime.utc(2022, 2, 6), 6521),
-    StepsSeries(DateTime.utc(2022, 2, 5), 1021),
-    StepsSeries(DateTime.utc(2022, 2, 4), 10567),
-    StepsSeries(DateTime.utc(2022, 2, 3), 7500)
-  ];
 
-
-  Future<int> onStepsRetrieved() async{
-      return await StepsService().getStepsToday("132-567-001");
+  Future<List<int>> onStepsRetrieved() async{
+      List<dynamic> res = await StepsService().getStepsLastFiveDays("132-567-001");
+      List<int> steps = [];
+      for (int i = 0; i < res.length; i++){
+        steps.add(res[i]);
+      }
+      return steps;
   }
-
 
   @override
   Widget build(BuildContext context) {
-    onStepsRetrieved();
     return Padding(
       padding: EdgeInsets.fromLTRB(0.0, 50.0, 10.0, 0.0),
       child: FutureBuilder(
         future: onStepsRetrieved(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
-            return Column(
+          int stepsToday = 0;
+          List<StepsSeries> stepsSeries = [];
+          if(snapshot.hasData) {
+            List<int> stepsLastFiveDays = snapshot.data;
+            stepsToday = stepsLastFiveDays[0];
+            for(int i = 0; i < stepsLastFiveDays.length; i++){
+              DateTime now = DateTime.now();
+              stepsSeries.add(StepsSeries(DateTime(now.year, now.month, now.day-i), stepsLastFiveDays[i]));
+            }
+            stepsSeries = List.from(stepsSeries.reversed);
+          }
+          return Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                StepsToday(snapshot.data),
-                new Expanded(child: StepsChart(data))
+                StepsToday(stepsToday),
+                new Expanded(child: StepsChart(stepsSeries))
               ],
             );
         },
