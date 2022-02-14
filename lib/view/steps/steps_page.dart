@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:leg_barkr_app/model/steps_series.dart';
+import 'package:leg_barkr_app/service/steps_service.dart';
 import 'package:leg_barkr_app/view/steps/steps_chart.dart';
 import 'package:leg_barkr_app/view/steps/steps_today.dart';
 
@@ -23,16 +24,27 @@ class _StepsPageState extends State<StepsPage> {
   ];
 
 
+  Future<int> onStepsRetrieved() async{
+      return await StepsService().getStepsToday("132-567-001");
+  }
+
+
   @override
   Widget build(BuildContext context) {
+    onStepsRetrieved();
     return Padding(
       padding: EdgeInsets.fromLTRB(0.0, 50.0, 10.0, 0.0),
-      child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            StepsToday(5123),
-            new Expanded(child: StepsChart(data))
-          ],
+      child: FutureBuilder(
+        future: onStepsRetrieved(),
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                StepsToday(snapshot.data),
+                new Expanded(child: StepsChart(data))
+              ],
+            );
+        },
       )
     );
   }
