@@ -11,26 +11,37 @@ class MapPage extends StatefulWidget {
 
 class _MapPageState extends State<MapPage> {
   late GoogleMapController _mapController;
-
-  // This will be changed, to center around the dog (once app reads metrics from the server)
-  final LatLng _center = const LatLng(51.498356, -0.176894);
-
   final Map<String, Marker> _markers = {};
 
   Future<void> _onMapCreated(GoogleMapController controller) async {
-    final lastLocation = await MapService().getLastLocation("132-567-001");  // change this.
+    _mapController = controller;
+    final lastLocation = await MapService().getLastLocation("132-567-001"); // change this.
+    final myLocation = await MapService().getMyLocation();
+    print(myLocation.latitude);
     setState(() {
       _markers.clear();
-      print(lastLocation.longitude);
-      final petMarker = Marker(
-        markerId: MarkerId("pet_location"),
-        position: LatLng(lastLocation.latitude, lastLocation.longitude),
-        infoWindow: InfoWindow(
-          title: "Pet location",
-        ),
-      );
-      _markers["pet_location"] = petMarker;
-      print(_markers["pet_location"]);
+      if (lastLocation.latitude!=-1.0 && lastLocation.latitude!=-1.0){
+        final petMarker = Marker(
+          markerId: MarkerId("pet_location"),
+          position: LatLng(lastLocation.latitude, lastLocation.longitude),
+          infoWindow: InfoWindow(
+            title: "Pet location",
+          ),
+        );
+        _markers["pet_location"] = petMarker;
+      }
+
+      if (myLocation.latitude!=-1.0 && myLocation.longitude!=-1.0){
+        final myMarker = Marker(
+          markerId: MarkerId("my_location"),
+          position: LatLng(myLocation.latitude, myLocation.longitude),
+          infoWindow: InfoWindow(
+            title: "My location",
+          ),
+        );
+        _markers["my_location"] = myMarker;
+      }
+      _mapController.animateCamera(CameraUpdate.newLatLng(LatLng(myLocation.latitude, myLocation.longitude)));
     });
   }
 
@@ -41,8 +52,8 @@ class _MapPageState extends State<MapPage> {
         body: GoogleMap(
           onMapCreated: _onMapCreated,
           initialCameraPosition: CameraPosition(
-            target: _center,
-            zoom: 16.0,
+            target: LatLng(51.5, -0.12),
+            zoom: 12.0,
           ),
           markers: _markers.values.toSet(),
         ),
