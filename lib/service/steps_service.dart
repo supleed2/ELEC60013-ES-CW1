@@ -14,7 +14,7 @@ class StepsService {
     return jsonDecode(response.body)['cumulative_steps_today'];
   }
 
-  Future<List<dynamic>> getStepsLastFiveDays(deviceId) async {
+  Future<List<int>> getStepsLastFiveDays(deviceId) async {
     final response = await http.get(
       Uri.parse(Endpoints.getStepsLastFiveDays),
       headers: <String, String>{
@@ -22,7 +22,11 @@ class StepsService {
         'deviceid': deviceId,
       },
     );
-    print(jsonDecode(response.body)['daily_steps'].runtimeType);
-    return jsonDecode(response.body)['daily_steps'];
+    List<dynamic> list = jsonDecode(response.body)['daily_steps'];
+    List<int> steps = [];
+    for (final l in list){
+      steps.add(l);
+    }
+    return steps;
   }
 }

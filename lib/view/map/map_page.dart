@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:leg_barkr_app/service/map_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MapPage extends StatefulWidget {
   const MapPage({ Key? key }) : super(key: key);
@@ -15,8 +16,11 @@ class _MapPageState extends State<MapPage> {
 
   Future<void> _onMapCreated(GoogleMapController controller) async {
     _mapController = controller;
-    final lastLocation = await MapService().getPetLastLocation("132-567-001"); // change this.
+    final prefs = await SharedPreferences.getInstance();
+    final String deviceId = prefs.getString("current_device") ?? "";
+    final lastLocation = await MapService().getPetLastLocation(deviceId);
     final myLocation = await MapService().getMyLocation();
+
     setState(() {
       _markers.clear();
       final petMarker = Marker(

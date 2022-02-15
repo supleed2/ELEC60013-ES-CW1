@@ -3,6 +3,7 @@ import 'package:leg_barkr_app/model/steps_series.dart';
 import 'package:leg_barkr_app/service/steps_service.dart';
 import 'package:leg_barkr_app/view/steps/steps_chart.dart';
 import 'package:leg_barkr_app/view/steps/steps_today.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class StepsPage extends StatefulWidget {
   const StepsPage({ Key? key }) : super(key: key);
@@ -14,12 +15,9 @@ class StepsPage extends StatefulWidget {
 class _StepsPageState extends State<StepsPage> {
 
   Future<List<int>> onStepsRetrieved() async{
-      List<dynamic> res = await StepsService().getStepsLastFiveDays("132-567-001");
-      List<int> steps = [];
-      for (int i = 0; i < res.length; i++){
-        steps.add(res[i]);
-      }
-      return steps;
+    final prefs = await SharedPreferences.getInstance();
+    final String deviceId = prefs.getString("current_device") ?? "";
+    return await StepsService().getStepsLastFiveDays(deviceId);
   }
 
   @override

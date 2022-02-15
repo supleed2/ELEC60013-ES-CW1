@@ -3,10 +3,10 @@ import 'package:leg_barkr_app/model/metrics_data.dart';
 import 'package:leg_barkr_app/model/metrics_response.dart';
 import 'package:leg_barkr_app/model/temp_series.dart';
 import 'package:leg_barkr_app/service/metrics_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'metrics_row.dart';
-import 'package:leg_barkr_app/utils/constants.dart' as Constants;
-
 import 'temp_chart.dart';
+import 'package:leg_barkr_app/utils/constants.dart' as Constants;
 
 class MetricsPage extends StatefulWidget {
   const MetricsPage({ Key? key }) : super(key: key);
@@ -29,9 +29,10 @@ class _MetricsPageState extends State<MetricsPage> {
    */
 
   Future<MetricsResponse> onMetricsReceived() async{
-    return await MetricsService().getMetricsSummary("132-567-001");
+    final prefs = await SharedPreferences.getInstance();
+    final String deviceId = prefs.getString("current_device") ?? "";
+    return await MetricsService().getMetricsSummary(deviceId);
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +53,6 @@ class _MetricsPageState extends State<MetricsPage> {
                     children: <Widget>[
                       Text("Today's summary", textAlign: TextAlign.center, style: TextStyle(color: Colors.black, fontSize: 36, fontWeight: FontWeight.bold)),
 
-                      // Dummy data
                       MetricsRow(new MetricsData(metricsResponse.lastSkinTemp, metricsResponse.minSkinTemp, metricsResponse.maxSkinTemp, Constants.MIN_SKIN_TEMP, Constants.MAX_SKIN_TEMP, Constants.LOW_SKIN_TEMP_DOG, Constants.HIGH_SKIN_TEMP_DOG, "Skin temperature", "°C"), Colors.white, Colors.green, true),
                       MetricsRow(new MetricsData(metricsResponse.lastHumidity, metricsResponse.minHumidity, metricsResponse.maxHumidity, Constants.MIN_HUMIDITY, Constants.MAX_HUMIDITY, Constants.LOW_HUMIDITY_DOG, Constants.HIGH_HUMIDITY_DOG, "Humidity", "%"), Colors.green, Colors.black, false),
                       MetricsRow(new MetricsData(metricsResponse.lastAirTemp, metricsResponse.minAirTemp, metricsResponse.maxAirTemp, Constants.MIN_AIR_TEMP, Constants.MAX_AIR_TEMP, Constants.LOW_AIR_TEMP_DOG, Constants.HIGH_AIR_TEMP_DOG, "Air temperature", "°C"), Colors.white, Colors.green, true),
