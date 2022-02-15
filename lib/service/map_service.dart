@@ -26,7 +26,6 @@ class MapService{
       }
     }
     return await Geolocator.getCurrentPosition();
-
   }
 
 }

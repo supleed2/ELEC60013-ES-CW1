@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:leg_barkr_app/view/metrics/metrics_page.dart';
 import 'package:leg_barkr_app/view/steps/steps_page.dart';
 import 'package:leg_barkr_app/view/map/map_page.dart';
-import 'package:leg_barkr_app/view/settings_page.dart';
+import 'package:leg_barkr_app/view/settings/settings_page.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
