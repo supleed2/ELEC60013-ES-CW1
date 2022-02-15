@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:leg_barkr_app/model/steps_series.dart';
 import 'package:leg_barkr_app/service/steps_service.dart';
@@ -17,7 +18,9 @@ class _StepsPageState extends State<StepsPage> {
   Future<List<int>> onStepsRetrieved() async{
     final prefs = await SharedPreferences.getInstance();
     final String deviceId = prefs.getString("current_device") ?? "";
-    return await StepsService().getStepsLastFiveDays(deviceId);
+    final user = await FirebaseAuth.instance.currentUser!;
+    final String token = await user.getIdToken();
+    return await StepsService().getStepsLastFiveDays(deviceId, token);
   }
 
   @override

@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:leg_barkr_app/view/home.dart';
 import 'package:leg_barkr_app/utils/endpoints.dart' as Endpoints;
 import 'package:leg_barkr_app/view/auth/login_form.dart';
 
@@ -202,7 +201,28 @@ class _RegisterFormState extends State<RegisterForm> {
               primary: Colors.green,
             )
           )
+    );
 
+    final Container loginBtn = Container(
+        width: double.infinity,
+        height: 50,
+        child: ElevatedButton(
+            onPressed: (){ Navigator.pushNamed(context, '/login'); },
+            child: Text('Already have an account? Login now!',
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 15
+                )
+            ),
+            style: ElevatedButton.styleFrom(
+                alignment: Alignment.center,
+                primary: Colors.white,
+                side: BorderSide(
+                    color: Colors.green,
+                    width: 2
+                )
+            )
+        )
     );
 
     return Scaffold(
@@ -228,7 +248,9 @@ class _RegisterFormState extends State<RegisterForm> {
                       SizedBox(height: 20),
                       confirmPasswordInput,
                       SizedBox(height: 20),
-                      _registering ? loading : registerBtn
+                      _registering ? loading : registerBtn,
+                      SizedBox(height: 20),
+                      _registering ? Text("") : loginBtn
                     ]
               )
             )

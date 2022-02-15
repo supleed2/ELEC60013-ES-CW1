@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:leg_barkr_app/model/metrics_data.dart';
 import 'package:leg_barkr_app/model/metrics_response.dart';
@@ -31,7 +32,9 @@ class _MetricsPageState extends State<MetricsPage> {
   Future<MetricsResponse> onMetricsReceived() async{
     final prefs = await SharedPreferences.getInstance();
     final String deviceId = prefs.getString("current_device") ?? "";
-    return await MetricsService().getMetricsSummary(deviceId);
+    final user = await FirebaseAuth.instance.currentUser!;
+    final String token = await user.getIdToken();
+    return await MetricsService().getMetricsSummary(deviceId, token);
   }
 
   @override

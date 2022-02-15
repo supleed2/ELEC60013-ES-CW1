@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:leg_barkr_app/service/map_service.dart';
@@ -17,8 +18,10 @@ class _MapPageState extends State<MapPage> {
   Future<void> _onMapCreated(GoogleMapController controller) async {
     _mapController = controller;
     final prefs = await SharedPreferences.getInstance();
+    final user = await FirebaseAuth.instance.currentUser!;
+    final String token = await user.getIdToken();
     final String deviceId = prefs.getString("current_device") ?? "";
-    final lastLocation = await MapService().getPetLastLocation(deviceId);
+    final lastLocation = await MapService().getPetLastLocation(deviceId, token);
     final myLocation = await MapService().getMyLocation();
 
     setState(() {

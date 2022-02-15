@@ -5,15 +5,20 @@ import 'package:leg_barkr_app/model/latitude_longitude.dart';
 import 'package:leg_barkr_app/utils/endpoints.dart' as Endpoints;
 
 class MapService{
-  Future<LatitudeLongitude> getPetLastLocation(deviceId) async {
+  Future<LatitudeLongitude> getPetLastLocation(String deviceId, String sessionToken) async {
     final response = await http.get(
       Uri.parse(Endpoints.getLastLocation),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
-        'deviceid': deviceId,
+        'Authorization': sessionToken,
+        'Device-ID': deviceId,
       },
     );
-    return LatitudeLongitude.fromJson(jsonDecode(response.body));
+    if (response.statusCode == 200){
+      return LatitudeLongitude.fromJson(jsonDecode(response.body));
+    } else {
+      return throw Exception('Pet not found');
+    }
   }
 
   Future<Position> getMyLocation() async{
