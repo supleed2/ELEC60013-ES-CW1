@@ -1,6 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:leg_barkr_app/home.dart';
+import 'package:leg_barkr_app/view/home.dart';
 import 'package:flutter/services.dart';
 import 'package:leg_barkr_app/view/auth/login_form.dart';
 import 'package:leg_barkr_app/view/auth/register_form.dart';

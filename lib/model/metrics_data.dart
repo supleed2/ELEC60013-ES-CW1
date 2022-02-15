@@ -1,6 +1,6 @@
 class MetricsData{
-  double currentReading, lowestReading, highestReading, minimumPossible, maximumPossible, lowCutOff, highCutOff;
-  String metric, units;
+  final double currentReading, lowestReading, highestReading, minimumPossible, maximumPossible, lowCutOff, highCutOff;
+  final String metric, units;
 
   MetricsData(
       this.currentReading,

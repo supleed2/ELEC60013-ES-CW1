@@ -4,3 +4,4 @@ const String verify = "https://leg-barkr.nw.r.appspot.com/authentication/verify"
 const String getLastLocation = "https://leg-barkr.nw.r.appspot.com/readings/location/last";
 const String getStepsToday = "https://leg-barkr.nw.r.appspot.com/readings/steps/today";
 const String getStepsLastFiveDays = "https://leg-barkr.nw.r.appspot.com/readings/steps/last-five-days";
+const String getMetricsSummary = "https://leg-barkr.nw.r.appspot.com/readings/metrics-summary";

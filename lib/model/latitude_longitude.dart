@@ -1,10 +1,9 @@
 class LatitudeLongitude {
-  double latitude;
-  double longitude;
+  final double latitude;
+  final double longitude;
 
   LatitudeLongitude(this.latitude, this.longitude);
 
-  factory LatitudeLongitude.fromJson(Map<String, dynamic> parsedJson){
-    return LatitudeLongitude(parsedJson['latitude'], parsedJson['longitude']);
-  }
+  LatitudeLongitude.fromJson(Map<String, dynamic> parsedJson):
+    latitude = parsedJson['latitude'], longitude = parsedJson['longitude'];
 }

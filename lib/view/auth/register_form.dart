@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:leg_barkr_app/home.dart';
+import 'package:leg_barkr_app/view/home.dart';
 import 'package:leg_barkr_app/utils/endpoints.dart' as Endpoints;
 import 'package:leg_barkr_app/view/auth/login_form.dart';
 

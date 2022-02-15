@@ -26,25 +26,29 @@ class MetricsNow extends StatelessWidget {
                           endValue: data.lowCutOff,
                           color: Colors.blue,
                           startWidth: 10,
-                          endWidth: 10),
+                          endWidth: 10
+                      ),
                       GaugeRange(
                           startValue: data.lowCutOff,
                           endValue: data.highCutOff,
                           color: textColor,
                           startWidth: 10,
-                          endWidth: 10),
+                          endWidth: 10
+                      ),
                       GaugeRange(
                           startValue: data.highCutOff,
                           endValue: data.maximumPossible,
                           color: Colors.red,
                           startWidth: 10,
-                          endWidth: 10)
+                          endWidth: 10
+                      )
                     ],
                     pointers: [
                       MarkerPointer(
                           value: data.currentReading,
                           color: Colors.black,
-                          markerWidth: 20)
+                          markerWidth: 20
+                      )
                     ],
                     annotations: [
                       GaugeAnnotation(
