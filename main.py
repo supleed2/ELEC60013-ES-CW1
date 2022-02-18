@@ -1,7 +1,9 @@
 from time import sleep
+import yaml
 import smbus2
 import si7201
 import tmp006
+import hci
 
 bus = smbus2.SMBus(1)  # set up I2C bus 1
 
@@ -20,7 +22,16 @@ print(irtempsensor.manID)  # read the manufacturer ID and print
 print(irtempsensor.devID)  # read the device ID and print
 print(irtempsensor.temperature)  # read the temperature and print
 
-print("========= TMP006 Test Loop =========")
+print("========= Testing HCI Cast =========")
+with open(".secrets.yml", "r") as secrets:
+    try:
+        secrets = yaml.safe_load(secrets)
+        key = secrets["key"]  # Get Base64 encoded device public key from secrets file
+    except yaml.YAMLError as exc:
+        print(exc)
+
+btcast = hci.HCIBroadcaster(key)  # set up HCI Broadcaster
+btcast.start_advertising(5000)  # start advertising with interval of 5 seconds
+
 while True:
-    print(irtempsensor.temperature)  # read the temperature and print
-    sleep(1)  # wait for 1 second
+    btcast.start_advertising(5000)  # start advertising with interval of 5 seconds
