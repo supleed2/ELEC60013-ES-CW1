@@ -67,12 +67,14 @@ class lis3dh:
         prepare_z = smbus2.i2c_msg.write(self.addr, [0x2C])
         status = smbus2.i2c_msg.read(self.addr, 1)
         self.i2c.i2c_rdwr(check_status, status)
-        #while status.buf[0] != 0b1111:
-        #    sleep(0.00001)
-        self.i2c.i2c_rdwr(prepare_x, x)
-        self.i2c.i2c_rdwr(prepare_y, y)
-        self.i2c.i2c_rdwr(prepare_z, z)
-        X = int.from_bytes(x.buf[0],"big")
-        Y = int.from_bytes(y.buf[0],"big")
-        Z = int.from_bytes(z.buf[0],"big")
-        return [X,Y,Z]
+        while status.buf[0] != 0b1111:
+            sleep(1)
+            self.i2c.i2c_rdwr(check_status, status)
+        if status.buf[0] == 0b1111:
+            self.i2c.i2c_rdwr(prepare_x, x)
+            self.i2c.i2c_rdwr(prepare_y, y)
+            self.i2c.i2c_rdwr(prepare_z, z)
+            X = int.from_bytes(x.buf[0],"big")
+            Y = int.from_bytes(y.buf[0],"big")
+            Z = int.from_bytes(z.buf[0],"big")
+            return [X,Y,Z]
