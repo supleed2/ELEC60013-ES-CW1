@@ -65,8 +65,9 @@ class lis3dh:
         prepare_z = smbus2.i2c_msg.write(self.addr, [0x2C])
         read_status = smbus2.i2c_msg.read(self.addr, 1)
         status = self.i2c.i2c_rdwr(check_status, read_status)
-        while status.buf[0] != 0b1111:
-            sleep(0.00001)
+        #while status.buf[0] != 0b1111:
+        #    sleep(0.00001)
+        print(status)
         x = self.i2c.i2c_rdwr(prepare_x, read_axis)
         y = self.i2c.i2c_rdwr(prepare_y, read_axis)
         z = self.i2c.i2c_rdwr(prepare_z, read_axis)
