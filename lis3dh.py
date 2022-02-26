@@ -77,11 +77,12 @@ class lis3dh:
             print(status.buf[0], "\n")
             sleep(1)
             self.i2c.i2c_rdwr(check_status, status)
-        if status.buf[0] == 0b1111:
+        if (int.from_bytes(status.buf[0],"big") & 0b1111) == 0b1111:
             self.i2c.i2c_rdwr(prepare_x, x)
             self.i2c.i2c_rdwr(prepare_y, y)
             self.i2c.i2c_rdwr(prepare_z, z)
             X = int.from_bytes(x.buf[0],"big")
             Y = int.from_bytes(y.buf[0],"big")
             Z = int.from_bytes(z.buf[0],"big")
+            print(X,Y,Z)
             return [X,Y,Z]
