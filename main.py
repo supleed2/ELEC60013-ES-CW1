@@ -1,8 +1,8 @@
 from lis3dh import *
 
 print("Raspberry Pi Zero W, up and running!")
-
-accel = lis3dh()
+bus = smbus2.SMBus(1)
+accel = lis3dh(bus)
 
 print("LIS3DH initiated successfully!")
 
