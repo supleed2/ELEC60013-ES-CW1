@@ -59,18 +59,17 @@ class lis3dh:
 
     def readAll(self) -> list:
         check_status = smbus2.i2c_msg.write(self.addr, [0x27])
-        read_axis = smbus2.i2c_msg.read(self.addr, 1)
+        x = smbus2.i2c_msg.read(self.addr, 1)
+        y = smbus2.i2c_msg.read(self.addr, 1)
+        z = smbus2.i2c_msg.read(self.addr, 1)
         prepare_x = smbus2.i2c_msg.write(self.addr, [0x28])
         prepare_y = smbus2.i2c_msg.write(self.addr, [0x2A])
         prepare_z = smbus2.i2c_msg.write(self.addr, [0x2C])
         read_status = smbus2.i2c_msg.read(self.addr, 1)
-        status = self.i2c.i2c_rdwr(check_status, read_status)
+        self.i2c.i2c_rdwr(check_status, read_status)
         #while status.buf[0] != 0b1111:
         #    sleep(0.00001)
-        print(status)
-        x = self.i2c.i2c_rdwr(prepare_x, read_axis)
-        y = self.i2c.i2c_rdwr(prepare_y, read_axis)
-        z = self.i2c.i2c_rdwr(prepare_z, read_axis)
+        self.i2c.i2c_rdwr(prepare_x, x, prepare_y, y, prepare_z, z)
         X = int.from_bytes(x.buf[0])
         Y = int.from_bytes(y.buf[0])
         Z = int.from_bytes(z.buf[0])
