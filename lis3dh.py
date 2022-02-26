@@ -68,14 +68,14 @@ class lis3dh:
         x = smbus2.i2c_msg.read(self.addr, 1)
         y = smbus2.i2c_msg.read(self.addr, 1)
         z = smbus2.i2c_msg.read(self.addr, 1)
-        prepare_x = smbus2.i2c_msg.write(self.addr, [0x28])
-        prepare_y = smbus2.i2c_msg.write(self.addr, [0x2A])
-        prepare_z = smbus2.i2c_msg.write(self.addr, [0x2C])
+        prepare_x = smbus2.i2c_msg.write(self.addr, [0x29])
+        prepare_y = smbus2.i2c_msg.write(self.addr, [0x2B])
+        prepare_z = smbus2.i2c_msg.write(self.addr, [0x2D])
         status = smbus2.i2c_msg.read(self.addr, 1)
         self.i2c.i2c_rdwr(check_status, status)
         while (int.from_bytes(status.buf[0],"big") & 0b1111) != 0b1111:
             print(status.buf[0], "\n")
-            sleep(1)
+            sleep(0.01)
             self.i2c.i2c_rdwr(check_status, status)
         if (int.from_bytes(status.buf[0],"big") & 0b1111) == 0b1111:
             print("Status: ",status.buf[0], "\n")
@@ -85,5 +85,4 @@ class lis3dh:
             X = int.from_bytes(x.buf[0],"big")
             Y = int.from_bytes(y.buf[0],"big")
             Z = int.from_bytes(z.buf[0],"big")
-            print(X,Y,Z)
             return [X,Y,Z]
