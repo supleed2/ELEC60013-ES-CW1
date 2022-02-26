@@ -74,7 +74,7 @@ class lis3dh:
         status = smbus2.i2c_msg.read(self.addr, 1)
         self.i2c.i2c_rdwr(check_status, status)
         while (int.from_bytes(status.buf[0],"big") & 0b1111) != 0b1111:
-            print(status.buf[0], "\n")
+            #print(status.buf[0], "\n")
             sleep(0.01)
             self.i2c.i2c_rdwr(check_status, status)
         if (int.from_bytes(status.buf[0],"big") & 0b1111) == 0b1111:
