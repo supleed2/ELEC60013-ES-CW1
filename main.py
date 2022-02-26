@@ -1,4 +1,4 @@
-from . import lis3dh.py
+from lis3dh import *
 
 print("Raspberry Pi Zero W, up and running!")
 
