@@ -70,7 +70,7 @@ class lis3dh:
         #while status.buf[0] != 0b1111:
         #    sleep(0.00001)
         self.i2c.i2c_rdwr(prepare_x, x)#, prepare_y, y, prepare_z, z)
-        X = int.from_bytes(x.buf[0])
+        X = int.from_bytes(x.buf[0],"big")
         #Y = int.from_bytes(y.buf[0])
         #Z = int.from_bytes(z.buf[0])
         return [X]
