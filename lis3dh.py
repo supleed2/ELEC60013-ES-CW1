@@ -1,6 +1,7 @@
 """Library for interacting with LIS3DH triple-axis accelerometer."""
 
 from importlib.resources import read_text
+from re import S
 from tabnanny import check
 import smbus2
 from time import sleep
@@ -56,6 +57,10 @@ class lis3dh:
         config3 = smbus2.i2c_msg.write(self.addr, [0x30,0x00]) #Configure 0x30
         config4 = smbus2.i2c_msg.write(self.addr, [0x24,0x00]) #Configure 0x24 again
         self.i2c.i2c_rdwr(config1, config2, config3, config4)
+        check_CTRL_REG1 = smbus2.i2c_msg.write(self.addr, [0x20])
+        ctrl_reg1 = smbus2.i2c_msg.read(self.addr, 1)
+        self.i2c.i2c_rdwr(check_CTRL_REG1, ctrl_reg1)
+        print(ctrl_reg1.buf[0])
 
     def readAll(self) -> list:
         check_status = smbus2.i2c_msg.write(self.addr, [0x27])
