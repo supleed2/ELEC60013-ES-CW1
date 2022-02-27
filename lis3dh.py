@@ -44,26 +44,41 @@ INT1_CFG_V = bytes([0x95])
 EMPTY = bytes([0x00])
 
 class lis3dh:
-    def __init__(self, i2cBus, i2cAddress=0x18, samplerate=SAMPLERATE_1HZ):
+    def __init__(self, i2cBus, resolution=2, samplerate=10, i2cAddress=0x18):
         sleep(0.005)
         self.i2c = i2cBus
         self.addr = i2cAddress
         self.samplerate = samplerate
         i2cBus.pec = True  # enable smbus2 Packet Error Checking
+        res_modes = {
+            2: 0b00, 4: 0b01,
+            8: 0b10, 16: 0b11
+        }
+        sample_modes = {
+            0:0x0, 1:0x1, 10:0x2, 25:0x3, 50:0x4,
+            100:0x5, 200:0x6, 400:0x7
+        }
 
-        #First try; configure beginning from 0x20 with MSB = 1 to increment
-        config0 = smbus2.i2c_msg.write(self.addr, [0x20,0x1F])
-        config1 = smbus2.i2c_msg.write(self.addr, [0xC1,0x00,0x00,0x00,0x00,0x00,0x00])
-        config2 = smbus2.i2c_msg.write(self.addr, [0xB2,0x00,0x00]) #Configure 0x32 with MSB = 1 to increment
-        config3 = smbus2.i2c_msg.write(self.addr, [0x30,0x00]) #Configure 0x30
-        config4 = smbus2.i2c_msg.write(self.addr, [0x24,0x00]) #Configure 0x24 again
+        # Check if user-entered values are correct
+        if resolution in res_modes:
+            self.resolution = resolution
+        else:
+            raise Exception("Invalid resolution.")
+        if samplerate in sample_modes:
+            self.samplerate = sample_modes[samplerate]
+        else:
+            raise Exception("Invalid sample rate.")
+
+        # First try; configure beginning from 0x20
+        config0 = smbus2.i2c_msg.write(self.addr, [0x20,(sample_modes[samplerate]<<4)|0xF]) # Initialise in low power mode
+        config1 = smbus2.i2c_msg.write(self.addr, [0xC1,0x00,0x00,0x00|self.resolution,0x00,0x00,0x00])
+        config2 = smbus2.i2c_msg.write(self.addr, [0xB2,0x00,0x00]) # Configure 0x32 with MSB = 1 to increment
+        config3 = smbus2.i2c_msg.write(self.addr, [0x30,0x00]) # Configure 0x30
+        config4 = smbus2.i2c_msg.write(self.addr, [0x24,0x00]) # Configure 0x24 again
         self.i2c.i2c_rdwr(config0, config1, config2, config3, config4)
-        check_CTRL_REG1 = smbus2.i2c_msg.write(self.addr, [0x20])
-        ctrl_reg1 = smbus2.i2c_msg.read(self.addr, 1)
-        self.i2c.i2c_rdwr(check_CTRL_REG1, ctrl_reg1)
-        print(ctrl_reg1.buf[0])
 
     def readAll(self) -> list:
+        '''Read acceleration data from all axes. Returns values as a list [X,Y,Z].'''
         check_status = smbus2.i2c_msg.write(self.addr, [0x27])
         x = smbus2.i2c_msg.read(self.addr, 1)
         y = smbus2.i2c_msg.read(self.addr, 1)
@@ -73,16 +88,19 @@ class lis3dh:
         prepare_z = smbus2.i2c_msg.write(self.addr, [0x2D])
         status = smbus2.i2c_msg.read(self.addr, 1)
         self.i2c.i2c_rdwr(check_status, status)
-        while (int.from_bytes(status.buf[0],"big") & 0b1111) != 0b1111:
-            #print(status.buf[0], "\n")
-            sleep(0.01)
+
+        while status.buf[0][0] & 0b1111 != 0b1111: # Wait for data to be available
+            sleep(0.001)
             self.i2c.i2c_rdwr(check_status, status)
-        if (int.from_bytes(status.buf[0],"big") & 0b1111) == 0b1111:
-            #print("Status: ",status.buf[0], "\n")
+
+        if status.buf[0][0] & 0b1111 == 0b1111: # If data is available, read
             self.i2c.i2c_rdwr(prepare_x, x)
             self.i2c.i2c_rdwr(prepare_y, y)
             self.i2c.i2c_rdwr(prepare_z, z)
             X = int.from_bytes(x.buf[0],"big")
             Y = int.from_bytes(y.buf[0],"big")
             Z = int.from_bytes(z.buf[0],"big")
+            # TODO: Need to format this so that it returns values in g
             return [X,Y,Z]
+        else:
+            return None # Should never get here lol
