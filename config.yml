@@ -17,186 +17,120 @@ params:
   # Used as meta data; describe your site to make Google Bots happy
   description: Barkr is a simple, fast, and easy way to keep track of your pet and their safety.
   navbarlogo:
-    image: logo.svg # from static/images/logo.png
+    image: logos/logo.png # from static/images/logos/logo.png
     link: /
   font:
     name: "Open Sans"
     sizes: [400, 600]
   hero:
-    # Main hero title
-    title: Manage. Deploy.
-    # Hero subtitle (optional)
-    subtitle: Lorem ipsum sit dolor amet is dummy text used by the typography industry
-    # Button text
-    buttontext: Get started
-    # Where the main hero button links to
-    buttonlink: "#"
-    # Hero image (from static/images/___)
-    image: illustrations/worker.svg
-    # Footer logos (from static/images/logos/clients/___.svg)
-    clientlogos:
-      - systek
-      - tribe
-      - kromo
-      - infinite
-      - gutwork
-  # Customizable navbar. For a dropdown, add a "sublinks" list.
+    title: Peace of mind, even when they're out
+    subtitle: Worldwide tracking coverage and revolutionary battery life
+    buttontext: Features
+    buttonlink: "#Features"
+    image: logos/largeLogo.png # from static/images/logos/largelogo.png
   navbar:
     - title: Features
-      url: /
+      url: /#Features
     - title: Pricing
-      url: /
-    - title: Dropdown
-      sublinks:
-        - title: Dropdown item
-          url: /
-        - title: Dropdown item
-          url: /
-        - title: Dropdown item
-          url: /
+      url: /#Pricing
+    - title: Reviews
+      url: /#Reviews
     - title: Log in
-      url: /
+      url: /login
     - title: Sign up
-      url: /
+      url: /signup
       button: true
-  sidebar:
-    # Logo (from /images/logos/___.svg)
-    logo: fresh-square
-    sections:
-      - title: User
-        icon: user
-        links:
-          - text: Profile
-            url: /
-          - text: Account
-            url: /
-          - text: Settings
-            url: /
-      - title: Messages
-        icon: envelope
-        links:
-          - text: Inbox
-            url: /
-          - text: Compose
-            url: /
-      - title: Images
-        icon: image
-        links:
-          - text: Library
-            url: /
-          - text: Upload
-            url: /
-      - title: Settings
-        icon: cog
-        links:
-          - text: User settings
-            url: /
-          - text: App settings
-            url: /
   section1:
-    title: Great power comes
-    subtitle: with great responsibility
+    title: Features
+    subtitle: Everything you need to know
     tiles:
-      - title: App builder
+      - title: Worldwide Tracking Coverage
         icon: mouse-globe
-        text: This is some explanatory text that is on two rows
-        url: /
-        buttonText: Free trial
-      - title: Cloud integration
+        text: Based on the FindMy network, without the need for GPS
+        url: /signup
+        buttonText: Get Started
+      - title: Web Dashboard
         icon: laptop-cloud
-        text: This is some explanatory text that is on two rows
-        url: /
-        buttonText: Get started
-      - title: Add-ons & plugins
+        text: Accessible on your phone, tablet, or computer
+        url: /#Online Dashboard
+        buttonText: Preview
+      - title: Multi-week Battery Life
         icon: plug-cloud
-        text: This is some explanatory text that is on two rows
-        url: /
+        text: Never worry about running out of power
+        url: /signup
         buttonText: Get started
   section2:
-    title: You're here because you want the best
-    subtitle: And we know it
+    title: Pricing
+    subtitle: Only the best for your best friend
     features:
-      - title: Powerful and unified interface
-        text: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna eros, eu pellentesque tortor vestibulum ut. Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis.
-        # Icon (from /images/illustrations/icons/___.svg)
-        icon: laptop-globe
-      - title: Cross-device synchronisation
-        text: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna eros, eu pellentesque tortor vestibulum ut. Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis.
-        icon: doc-sync
-      - title: Nomad system
-        text: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna eros, eu pellentesque tortor vestibulum ut. Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis.
-        icon: mobile-feed
+      - title: Hardware
+        text: $39.99, just the hardware you need, no more
+        icon: hardware
+      - title: Lite Plan
+        text: $0.99/month, get all the tracking data at an affordable price
+        icon: lite
+      - title: Premium Plan
+        text: $2.99/month, get tracking and health statistics, without breaking the bank
+        icon: full
   section3:
-    title: One platform
-    subtitle: To rule them all
-    image: illustrations/mockups/app-mockup.png
+    title: Online Dashboard
+    subtitle: Incase you don't have your phone handy
+    image: dashboardMockup.png
     buttonText: Get started
-    buttonLink: "#"
+    buttonLink: "/signup"
   section4:
-    title: Our Clients love us!
-    subtitle: Lorem ipsum sit dolor amet is a dummy text used by typography industry
+    title: Reviews
+    subtitle: Our users love it!
     clients:
-      - name: Irma Walters
-        quote: Lorem ipsum dolor sit amet, elit deleniti dissentias quo eu, hinc minim appetere te usu, ea case duis scribentur has. Duo te consequat elaboraret, has quando suavitate at.
-        job: Accountant
+      - name: Linda W.
+        quote: Sometimes my dog likes to chase after birds in the neighborhood, this gives me peace of mind that he's safe.
+        job: Verified Buyer
         img: 1
-      - name: John Bradley
-        quote: Lorem ipsum dolor sit amet, elit deleniti dissentias quo eu, hinc minim appetere te usu, ea case duis scribentur has. Duo te consequat elaboraret, has quando suavitate at.
-        job: Financial Analyst
+      - name: James T.
+        quote: The battery life is insane. Alerts usually within a minute and accurate enough location.
+        job: Verified Buyer
         img: 2
-      - name: Gary Blackman
-        quote: Lorem ipsum dolor sit amet, elit deleniti dissentias quo eu, hinc minim appetere te usu, ea case duis scribentur has. Duo te consequat elaboraret, has quando suavitate at.
-        job: HR Manager
+      - name: David L.
+        quote: With this, you never need to worry about it being charged. Had it for weeks and it's still half full.
+        job: Early Tester
         img: 3
-  section5: true
   footer:
-    # Logo (from /images/logos/___)
-    logo: fresh-white-alt.svg
-    # Social Media Title
-    socialmediatitle: Follow Us
-    # Social media links (GitHub, Twitter, etc.). All are optional.
-    socialmedia:
-      - link: https://github.com/lucperkins/github-fresh
-        # Icons are from Font Awesome
-        icon: github
-      - link: https://dribbble.com/#
-        icon: dribbble
-      - link: https://facebook.com/#
-        icon: facebook
-      - link: https://twitter.com/lucperkins
-        icon: twitter
-      - link: https://bitbucket.org/#
-        icon: bitbucket
-    bulmalogo: true
+    logo: logo.png
     quicklinks:
       column1:
         title: "Product"
         links:
           - text: Discover features
-            link: /
-          - text: Why choose our product?
-            link: /
-          - text: Compare features
-            link: /
-          - text: Our roadmap
-            link: /
-          - text: AGB
-            link: /agb
+            link: /#Features
+          - text: Check pricing
+            link: /#Pricing
+          - text: Read the reviews
+            link: /#Reviews
       column2:
         title: "Docs"
         links:
-          - text: Get started
-            link: /
-          - text: User guides
-            link: /
-          - text: Admin guide
-            link: /
-          - text: Developers
-            link: /
+          - text: Quickstart guide
+            link: /docs/quickstart
+          - text: App guide
+            link: /docs/app
+          - text: Dashboard guide
+            link: /docs/dashboard
       column3:
         title: "Blog"
         links:
           - text: Latest news
-            link: /blog/first
-          - text: Tech articles
-            link: /blog/second
+            link: /blog/latest
+          - text: Who we are
+            link: /blog/about
+          - text: Contact us
+            link: /blog/contact
+    socialmediatitle: Follow Us / More Info
+    socialmedia:
+      - link: https://github.com/LEG-Industries/ELEC60013-ES-CW1-Website
+        icon: github
+      - link: https://facebook.com/#
+        icon: facebook
+      - link: https://instagram.com/#
+        icon: instagram
+      - link: https://twitter.com/#
+        icon: twitter
