@@ -47,8 +47,8 @@ params:
       - title: Worldwide Tracking Coverage
         icon: mouse-globe
         text: Based on the FindMy network, without the need for GPS
-        url: /signup
-        buttonText: Get Started
+        url: /blog/why
+        buttonText: Find Out More
       - title: Web Dashboard
         icon: laptop-cloud
         text: Accessible on your phone, tablet, or computer
@@ -62,23 +62,35 @@ params:
   section2:
     title: Pricing
     subtitle: Only the best for your best friend
-    features:
+    Tiles:
       - title: Hardware
-        text: $39.99, just the hardware you need, no more
         icon: hardware
+        text: $39.99, just the hardware you need, no more
+        url: /shop
+        buttonText: Buy Now
       - title: Lite Plan
-        text: $0.99/month, get all the tracking data at an affordable price
         icon: lite
+        text: $0.99/month, get all the tracking data at an affordable price
+        url: /signup
+        buttonText: Get started
       - title: Premium Plan
-        text: $2.99/month, get tracking and health statistics, without breaking the bank
         icon: full
+        text: $2.99/month, get tracking and health statistics, without breaking the bank
+        url: /signup
+        buttonText: Get started
   section3:
     title: Online Dashboard
     subtitle: Incase you don't have your phone handy
     image: dashboardMockup.png
-    buttonText: Get started
-    buttonLink: "/signup"
+    buttonText: Dashboard Guide
+    buttonLink: /docs/dashboard
   section4:
+    title: App
+    subtitle: Built for cross-platform using Flutter
+    image: appMockup.png
+    buttonText: App Guide
+    buttonLink: /docs/app
+  section5:
     title: Reviews
     subtitle: Our users love it!
     clients:
@@ -118,8 +130,8 @@ params:
       column3:
         title: "Blog"
         links:
-          - text: Latest news
-            link: /blog/latest
+          - text: Why Barkr
+            link: /blog/why
           - text: Who we are
             link: /blog/about
           - text: Contact us

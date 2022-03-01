@@ -1,33 +1,39 @@
 {{- $section2 := .Site.Params.section2 }} {{- $title := index $section2 "title"
-}} {{- $subtitle := index $section2 "subtitle" }} {{- $features := index
-$section2 "features" }}
-<section id="{{ $title }}" class="section is-medium">
+}} {{- $subtitle := index $section2 "subtitle" }} {{- $tiles := index $section2
+"tiles" }}
+<section id="{{ $title }}" class="section section-feature-grey is-medium">
   <div class="container">
-    <div class="columns">
-      <div class="column is-centered-tablet-portrait">
-        <h1 class="title section-title">{{ $title }}</h1>
-        <h3 class="subtitle is-5 is-muted">{{ $subtitle }}</h3>
-        <div class="divider"></div>
-      </div>
-      <div class="column is-7 mt-60">
-        {{- range $features }}
-        <article class="media icon-box">
-          <figure class="media-left">
-            <p class="image">
+    <div class="title-wrapper has-text-centered">
+      <h2 class="title is-2">{{ $title }}</h2>
+      <h3 class="subtitle is-5 is-muted">{{ $subtitle }}</h3>
+      <div class="divider is-centered"></div>
+    </div>
+
+    <div class="content-wrapper">
+      <div class="columns">
+        {{- range $tiles }}
+        <div class="column is-one-third">
+          <div
+            class="feature-card is-bordered has-text-centered revealOnScroll delay-1"
+            data-animation="fadeInLeft"
+          >
+            <div class="card-title">
+              <h4>{{ .title }}</h4>
+            </div>
+            <div class="card-icon">
               <img src="{{ printf "/images/illustrations/icons/%s.svg" .icon |
               relURL }}">
-            </p>
-          </figure>
-          <div class="media-content mt-50">
-            <div class="content">
-              <p>
-                <span class="icon-box-title">{{ .title }}</span>
-
-                <span class="icon-box-text">{{ .text | markdownify }}</span>
-              </p>
+            </div>
+            <div class="card-text">
+              <p>{{ .text }}</p>
+            </div>
+            <div class="card-action">
+              <a href="{{ .url }}" class="button btn-align-md accent-btn raised"
+                >{{ .buttonText }}</a
+              >
             </div>
           </div>
-        </article>
+        </div>
         {{- end }}
       </div>
     </div>
