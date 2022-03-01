@@ -8,7 +8,7 @@ class HCIBroadcaster:
     def __init__(self, b64key):
         self.key = base64.b64decode(b64key)
 
-    def _advertisement_template():
+    def _advertisement_template(self):
         adv = ""
         adv += "1e"  # length (30)
         adv += "ff"  # manufacturer specific data
