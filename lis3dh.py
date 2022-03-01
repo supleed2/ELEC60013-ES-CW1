@@ -43,7 +43,7 @@ INT1_DURATION_V = bytes([0x03])
 INT1_CFG_V = bytes([0x95])
 EMPTY = bytes([0x00])
 
-class lis3dh:
+class LIS3DH:
     def __init__(self, i2cBus, samplerate=10, i2cAddress=0x18):
         sleep(0.005)
         self.i2c = i2cBus
