@@ -3,12 +3,12 @@ import 'package:http/http.dart' as http;
 import 'package:leg_barkr_app/utils/endpoints.dart' as Endpoints;
 
 class AuthService{
-  Future<List<String>> getUserDevices(String sessionToken) async {
+  Future<List<String>> getUserDevices(String uid) async {
     final response = await http.get(
       Uri.parse(Endpoints.getUserDevices),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
-        'Authorization': sessionToken,
+        'UID': uid,
       },
     );
     if (response.statusCode == 200){

@@ -60,10 +60,12 @@ class _MetricsPageState extends State<MetricsPage> {
                       MetricsRow(new MetricsData(metricsResponse.lastHumidity, metricsResponse.minHumidity, metricsResponse.maxHumidity, Constants.MIN_HUMIDITY, Constants.MAX_HUMIDITY, Constants.LOW_HUMIDITY_DOG, Constants.HIGH_HUMIDITY_DOG, "Humidity", "%"), Colors.green, Colors.black, false),
                       MetricsRow(new MetricsData(metricsResponse.lastAirTemp, metricsResponse.minAirTemp, metricsResponse.maxAirTemp, Constants.MIN_AIR_TEMP, Constants.MAX_AIR_TEMP, Constants.LOW_AIR_TEMP_DOG, Constants.HIGH_AIR_TEMP_DOG, "Air temperature", "°C"), Colors.white, Colors.green, true),
 
+                      /*
                       Padding(
                         padding: EdgeInsets.fromLTRB(0.0, 20.0, 0.0, 0.0),
                         child: Text("Today's temperature", textAlign: TextAlign.center, style: TextStyle(color: Colors.black, fontSize: 36, fontWeight: FontWeight.bold)),
                       ),
+                       */
 
                       //TempChart(data)
 

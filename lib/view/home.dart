@@ -26,8 +26,8 @@ class _HomeScreenState extends State<HomeScreen> {
         Navigator.pushNamed(context, "/login");
       } else {
         final prefs = await SharedPreferences.getInstance();
-        final String token = await user.getIdToken();
-        final List<String> userDevices = await AuthService().getUserDevices(token);
+        //final String token = await user.getIdToken();
+        final List<String> userDevices = await AuthService().getUserDevices(user.uid);
         prefs.setStringList("devices", userDevices);
         prefs.setString("current_device", userDevices[0]);
       }
@@ -51,7 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
           MetricsPage(),
           StepsPage(),
           MapPage(),
-          SettingsPage()
+          //SettingsPage()
         ],
         onPageChanged: (page) {
           setState(() {
