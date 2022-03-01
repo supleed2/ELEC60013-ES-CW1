@@ -7,7 +7,9 @@ accel = lis3dh(bus,2,10)
 
 print("LIS3DH initiated successfully!")
 
-name = "output_"+datetime.now()+".txt"
+now = datetime.now()
+date_time = now.strftime("%d_%m_%Y_%H_%M_%S")
+name = "output_"+date_time+".txt"
 f = open(name,"x")
 print("X","Y","Z", file=f)
 f.close()
