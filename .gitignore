@@ -153,6 +153,3 @@ cython_debug/
 
 # VSCode
 .vscode/
-
-# Matlab files
-.m
