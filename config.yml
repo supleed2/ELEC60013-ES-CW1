@@ -35,8 +35,8 @@ params:
       url: /#Pricing
     - title: Reviews
       url: /#Reviews
-    - title: Log in
-      url: /login
+    - title: Why Barkr
+      url: /blog/why
     - title: Sign up
       url: /signup
       button: true
