@@ -82,7 +82,7 @@ class LIS3DH:
         int1_src_loc = smbus2.i2c_msg.write(self.addr, [0x31])
         read_int1_src = smbus2.i2c_msg.read(self.addr, 1)
         self.i2c.i2c_rdwr(int1_src_loc,read_int1_src)
-        if read_int1_src.bug[0] != None:
+        if read_int1_src.buf[0] != None:
             return True
         else:
             return False
@@ -92,7 +92,7 @@ class LIS3DH:
         int2_src_loc = smbus2.i2c_msg.write(self.addr, [0x35])
         read_int2_src = smbus2.i2c_msg.read(self.addr, 1)
         self.i2c.i2c_rdwr(int2_src_loc,read_int2_src)
-        if read_int2_src.bug[0] != None:
+        if read_int2_src.buf[0] != None:
             return True
         else:
             return False

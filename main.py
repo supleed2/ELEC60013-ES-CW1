@@ -1,6 +1,6 @@
 import os, sys
 from time import sleep
-from strictyaml import load, Map, Str, YAMLError
+import yaml
 import paho.mqtt.client as mqtt
 import json, smbus2, si7201, tmp006, lis3dh, hci, gpiozero
 
@@ -29,15 +29,15 @@ irtemp.active = 1  # turn on TMP006
 
 accel = lis3dh.LIS3DH(bus, 10, 0x18)  # set up LIS3DH sensor
 fall = gpiozero.Button(18, pull_up = False)  # GPIO17: Freefall Interrupt (INT1)
-fall.when_activated = setFallen(fall, accel)  # set fallen to True when Freefall Interrupt (INT1) is triggered
+fall.when_activated = lambda: setFallen(fall, accel)  # set fallen to True when Freefall Interrupt (INT1) is triggered
 step = gpiozero.Button(17, pull_up = False)  # GPIO18: Step Counter Interrupt (INT2)
-step.when_activated = incrementStepCount(step, accel)  # increment step count when Step Counter Interrupt (INT2) is triggered
+step.when_activated = lambda: incrementStepCount(step, accel)  # increment step count when Step Counter Interrupt (INT2) is triggered
 
 with open(".secrets.yml", "r") as secrets:
     try:
-        secrets = load(secrets, schema = Map({"key": Str()}))
+        secrets = yaml.load(secrets, Loader = yaml.SafeLoader)
         key = secrets["key"]  # Get Base64 encoded device public key from secrets file
-    except YAMLError as exc:
+    except ImportError as exc:
         print(exc)
         sleep(60) # 60s delay before restarting
         os.execl(sys.executable, os.path.abspath(__file__), *sys.argv) # Restart propgram
