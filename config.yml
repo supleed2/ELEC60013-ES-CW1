@@ -46,12 +46,12 @@ params:
     tiles:
       - title: Worldwide Tracking Coverage
         icon: mouse-globe
-        text: Based on the FindMy network, without the need for GPS
+        text: Based on Apple's FindMyNetwork
         url: /blog/why
         buttonText: Find Out More
       - title: Web Dashboard
         icon: laptop-cloud
-        text: Accessible on your phone, tablet, or computer
+        text: As a mobile app or computer web-site
         url: /#Online Dashboard
         buttonText: Preview
       - title: Multi-week Battery Life
@@ -65,17 +65,17 @@ params:
     Tiles:
       - title: Hardware
         icon: hardware
-        text: $39.99, just the hardware you need, no more
+        text: $39.99, just the hardware you need, nothing more - lightweight and safe to use
         url: /shop
         buttonText: Buy Now
       - title: Lite Plan
         icon: lite
-        text: $0.99/month, get all the tracking data at an affordable price
+        text: $0.99/month, get all the tracking data at an affordable price for your best friend
         url: /signup
         buttonText: Get started
       - title: Premium Plan
         icon: full
-        text: $2.99/month, get tracking and health statistics, without breaking the bank
+        text: $2.99/month, get tracking, health and safety statistics, without breaking the bank
         url: /signup
         buttonText: Get started
   section3:
