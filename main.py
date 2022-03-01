@@ -16,6 +16,6 @@ f.close()
 
 while True:
     [X,Y,Z] = accel.readAll()
-    with open("output.txt","a") as f:
+    with open(name,"a") as f:
         print("X: ",X,"\tY: ",Y,"\t Z: ",Z,"\n")
         print(X,Y,Z, file=f)
