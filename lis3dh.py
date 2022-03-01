@@ -100,6 +100,8 @@ class lis3dh:
             X = int.from_bytes(x.buf[0],"big")
             Y = int.from_bytes(y.buf[0],"big")
             Z = int.from_bytes(z.buf[0],"big")
+
+            # Convert from binary 2s complement to useful data
             new_values = []
             for D in [X,Y,Z]:
                 MSB = D >> 7
@@ -108,6 +110,7 @@ class lis3dh:
                 else:
                     res = (D*self.resolution)/128
                 new_values.append(res)
+                
             return new_values
         else:
             return None # Should never get here lol
