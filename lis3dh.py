@@ -44,38 +44,58 @@ INT1_CFG_V = bytes([0x95])
 EMPTY = bytes([0x00])
 
 class lis3dh:
-    def __init__(self, i2cBus, resolution=2, samplerate=10, i2cAddress=0x18):
+    def __init__(self, i2cBus, samplerate=10, i2cAddress=0x18):
         sleep(0.005)
         self.i2c = i2cBus
         self.addr = i2cAddress
         self.samplerate = samplerate
         i2cBus.pec = True  # enable smbus2 Packet Error Checking
-        res_modes = {
-            2: 0b00, 4: 0b01,
-            8: 0b10, 16: 0b11
-        }
         sample_modes = {
             0:0x0, 1:0x1, 10:0x2, 25:0x3, 50:0x4,
             100:0x5, 200:0x6, 400:0x7
         }
 
         # Check if user-entered values are correct
-        if resolution in res_modes:
-            self.resolution = resolution
-        else:
-            raise Exception("Invalid resolution.")
         if samplerate in sample_modes:
             self.samplerate = sample_modes[samplerate]
         else:
             raise Exception("Invalid sample rate.")
 
-        # First try; configure beginning from 0x20
-        config0 = smbus2.i2c_msg.write(self.addr, [0x20,(sample_modes[samplerate]<<4)|0xF]) # Initialise in low power mode
-        config1 = smbus2.i2c_msg.write(self.addr, [0xC1,0x00,0x00,0x00|self.resolution,0x00,0x00,0x00])
-        config2 = smbus2.i2c_msg.write(self.addr, [0xB2,0x00,0x00]) # Configure 0x32 with MSB = 1 to increment
-        config3 = smbus2.i2c_msg.write(self.addr, [0x30,0x00]) # Configure 0x30
-        config4 = smbus2.i2c_msg.write(self.addr, [0x24,0x00]) # Configure 0x24 again
-        self.i2c.i2c_rdwr(config0, config1, config2, config3, config4)
+        # Configure all registers in +-2g mode
+        c0 = smbus2.i2c_msg.write(self.addr, [0x20,(sample_modes[samplerate]<<4)|0xF]) # Initialise in low power mode
+        c1 = smbus2.i2c_msg.write(self.addr, [0x21,0x0A])
+        c2 = smbus2.i2c_msg.write(self.addr, [0x22,0x40])
+        c3 = smbus2.i2c_msg.write(self.addr, [0x23,0x00])
+        c4 = smbus2.i2c_msg.write(self.addr, [0x24,0x0A])
+        c5 = smbus2.i2c_msg.write(self.addr, [0x25,0x20])
+        c6 = smbus2.i2c_msg.write(self.addr, [0x2E,0x00])
+        c7 = smbus2.i2c_msg.write(self.addr, [0x30,0x95])
+        c8 = smbus2.i2c_msg.write(self.addr, [0x32,0x16])
+        c9 = smbus2.i2c_msg.write(self.addr, [0x33,0x03])
+        c10 = smbus2.i2c_msg.write(self.addr, [0x34,0x3F])
+        c11 = smbus2.i2c_msg.write(self.addr, [0x36,0x4A])
+        c12 = smbus2.i2c_msg.write(self.addr, [0x24,0x0A]) # Configure 0x24 again
+        self.i2c.i2c_rdwr(c0,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,c11,c12)
+
+    def resetint1(self) -> bool:
+        '''Read INT1_SRC to reset it after an interrupt event.'''
+        int1_src_loc = smbus2.i2c_msg.write(self.addr, [0x31])
+        read_int1_src = smbus2.i2c_msg.read(self.addr, 1)
+        self.i2c.i2c_rdwr(int1_src_loc,read_int1_src)
+        if read_int1_src.bug[0] != None:
+            return True
+        else:
+            return False
+        
+    def resetint2(self) -> bool:
+        '''Read INT2_SRC to reset it after an interrupt event.'''
+        int2_src_loc = smbus2.i2c_msg.write(self.addr, [0x35])
+        read_int2_src = smbus2.i2c_msg.read(self.addr, 1)
+        self.i2c.i2c_rdwr(int2_src_loc,read_int2_src)
+        if read_int2_src.bug[0] != None:
+            return True
+        else:
+            return False
 
     def readAll(self) -> list:
         '''Read acceleration data from all axes. Returns values as a list [X,Y,Z].'''
@@ -110,7 +130,7 @@ class lis3dh:
                 else:
                     res = (D*self.resolution)/128
                 new_values.append(res)
-                
+
             return new_values
         else:
             return None # Should never get here lol
