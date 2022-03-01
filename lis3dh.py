@@ -104,9 +104,9 @@ class lis3dh:
             for D in [X,Y,Z]:
                 MSB = D >> 7
                 if MSB == 1:
-                    res = (-128 + (D - 128))/(128*self.resolution)
+                    res = (-128 + (D - 128))*self.resolution/128
                 else:
-                    res = D/(128*self.resolution)
+                    res = (D*self.resolution)/128
                 new_values.append(res)
             return new_values
         else:
