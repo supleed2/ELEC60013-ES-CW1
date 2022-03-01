@@ -9,7 +9,6 @@ app = Flask(__name__)
 app.register_blueprint(authentication)
 app.register_blueprint(data)
 
-
 # Initialize Mail instance
 app.config['MAIL_SERVER'] = MAIL_SERVER
 app.config['MAIL_PORT'] = MAIL_PORT

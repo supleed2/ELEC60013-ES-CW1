@@ -8,7 +8,7 @@ data = Blueprint('data', __name__)
 
 @data.route('/readings/save', methods=['POST'])
 def uploadReadings():
-    deviceId = request.headers.get('deviceid')
+    deviceId = request.headers.get('Device-ID')
     if deviceId is None:
         resp = {'error': 'Device not specified'}
         return Response(json.dumps(resp), status=400, mimetype='application/json')
@@ -36,7 +36,7 @@ def uploadReadings():
 
 @data.route('/readings/getall', methods=['GET'])
 def getAllReadings():
-    deviceId = request.headers.get('deviceid')
+    deviceId = request.headers.get('Device-ID')
     if deviceId is None:
         resp = {'error': 'Device not specified'}
         return Response(json.dumps(resp), status=400, mimetype='application/json')
@@ -52,7 +52,7 @@ def getAllReadings():
 
 @data.route('/readings/location/last', methods=['GET'])
 def getLastLocation():
-    deviceId = request.headers.get('deviceid')
+    deviceId = request.headers.get('Device-ID')
     if deviceId is None:
         resp = {'error': 'Device not specified'}
         return Response(json.dumps(resp), status=400, mimetype='application/json')
@@ -72,7 +72,7 @@ def getLastLocation():
 
 @data.route('/readings/steps/today', methods=['GET'])
 def getStepsToday():
-    deviceId = request.headers.get('deviceid')
+    deviceId = request.headers.get('Device-ID')
     if deviceId is None:
         resp = {'error': 'Device not specified'}
         return Response(json.dumps(resp), status=400, mimetype='application/json')
@@ -90,7 +90,7 @@ def getStepsToday():
 
 @data.route('/readings/steps/last-five-days', methods=['GET'])
 def getStepsLastFiveDays():
-    deviceId = request.headers.get('deviceid')
+    deviceId = request.headers.get('Device-ID')
     if deviceId is None:
         resp = {'error': 'Device not specified'}
         return Response(json.dumps(resp), status=400, mimetype='application/json')
@@ -121,13 +121,13 @@ def getStepsLastFiveDays():
 
 @data.route('/readings/metrics-summary', methods=['GET'])
 def getMetricsSummary():
-    deviceId = request.headers.get('deviceid')
+    deviceId = request.headers.get('Device-ID')
     if deviceId is None:
         resp = {'error': 'Device not specified'}
         return Response(json.dumps(resp), status=400, mimetype='application/json')
 
-    upcomingMidnight = datetime.combine(datetime.today(), time.min) #+ timedelta(days=1)
-    lastMidnight = datetime.combine(datetime.today(), time.min) - timedelta(days=1)
+    upcomingMidnight = datetime.combine(datetime.today(), time.min) + timedelta(days=1)
+    lastMidnight = datetime.combine(datetime.today(), time.min)
     doc = firestore.client().collection(u'readings').document(deviceId).get()
 
     if doc.exists:

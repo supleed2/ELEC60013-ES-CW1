@@ -74,3 +74,20 @@ def verify():
         lib.utils.sendVerificationMail(user.display_name, user.email, code)
         resp = {'error': 'Server could not find code, creating new one and sending email'}
         return Response(json.dumps(resp), status=500, mimetype='application/json')
+
+@authentication.route('/authentication/get-user-devices', methods=['GET'])
+def uploadReadings():
+    uid = request.headers.get('UID')
+    if uid is None:
+        resp = {'error': 'UID not specified'}
+        return Response(json.dumps(resp), status=400, mimetype='application/json')
+
+    # Save all the measurements
+    doc = firestore.client().collection(u'devices').document(uid).get()
+    if doc.exists:
+        list = doc.to_dict()['devices']
+        data = list
+    else:
+        data = []
+    res = {'devices': data}
+    return Response(json.dumps(res), status=200, mimetype='application/json')
