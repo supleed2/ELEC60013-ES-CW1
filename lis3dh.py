@@ -100,7 +100,14 @@ class lis3dh:
             X = int.from_bytes(x.buf[0],"big")
             Y = int.from_bytes(y.buf[0],"big")
             Z = int.from_bytes(z.buf[0],"big")
-            # TODO: Need to format this so that it returns values in g
-            return [X,Y,Z]
+            new_values = []
+            for D in [X,Y,Z]:
+                MSB = D >> 7
+                if MSB == 1:
+                    res = -128 + (D - 128)
+                else:
+                    res = D
+                new_values.append(res)
+            return new_values
         else:
             return None # Should never get here lol
