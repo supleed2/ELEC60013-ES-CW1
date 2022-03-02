@@ -35,6 +35,7 @@ class TMP006:
 
     @property
     def temperature(self) -> float:
+        """Measured temperature in degrees Celsius, to 2 decimel places"""
         Vobj = self.vObject()
         Tdie = self.tAmbient()
         # Values for Calculations
@@ -55,7 +56,7 @@ class TMP006:
         # Calculate object temperature in Kelvin
         Tobj = (Tdie**4 + (fVobj / S)) ** 0.25
         # Convert from Kelvin to Celsius
-        return Tobj - 273.15
+        return round(Tobj - 273.15, 2)
 
     @property
     def active(self) -> bool:
