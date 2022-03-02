@@ -73,7 +73,7 @@ class lis3dh:
         c8 = smbus2.i2c_msg.write(self.addr, [0x32,0x16])
         c9 = smbus2.i2c_msg.write(self.addr, [0x33,0x03])
         c10 = smbus2.i2c_msg.write(self.addr, [0x34,0x3F])
-        c11 = smbus2.i2c_msg.write(self.addr, [0x36,0x4A])
+        c11 = smbus2.i2c_msg.write(self.addr, [0x36,0x32])
         c12 = smbus2.i2c_msg.write(self.addr, [0x24,0x0A]) # Configure 0x24 again
         self.i2c.i2c_rdwr(c0,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,c11,c12)
 
