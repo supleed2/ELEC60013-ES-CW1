@@ -1,0 +1,148 @@
+baseURL: https://barkr.8bitsqu.id/
+languageCode: en-us
+title: Barkr
+theme: hugo-fresh
+# Disables warnings
+disableKinds:
+  - taxonomy
+  - taxonomyTerm
+markup:
+  goldmark:
+    renderer:
+      unsafe: true # Allows you to write raw html in your md files
+
+params:
+  # Open graph allows easy social sharing. If you don't want it you can set it to false or just delete the variable
+  openGraph: true
+  # Used as meta data; describe your site to make Google Bots happy
+  description: Barkr is a simple, fast, and easy way to keep track of your pet and their safety.
+  navbarlogo:
+    image: logos/logo.png # from static/images/logos/logo.png
+    link: /
+  font:
+    name: "Open Sans"
+    sizes: [400, 600]
+  hero:
+    title: Peace of mind, even when they're out
+    subtitle: Worldwide tracking coverage and revolutionary battery life
+    buttontext: Features
+    buttonlink: "#Features"
+    image: logos/largeLogo.png # from static/images/logos/largelogo.png
+  navbar:
+    - title: Features
+      url: /#Features
+    - title: Pricing
+      url: /#Pricing
+    - title: Reviews
+      url: /#Reviews
+    - title: Why Barkr
+      url: /blog/why
+    - title: Sign up
+      url: /signup
+      button: true
+  section1:
+    title: Features
+    subtitle: Everything you need to know
+    tiles:
+      - title: Worldwide Tracking Coverage
+        icon: mouse-globe
+        text: Based on Apple's FindMyNetwork
+        url: /blog/why
+        buttonText: Find Out More
+      - title: Web Dashboard
+        icon: laptop-cloud
+        text: As a mobile app or computer web-site
+        url: /#Online Dashboard
+        buttonText: Preview
+      - title: Multi-week Battery Life
+        icon: plug-cloud
+        text: Never worry about running out of power
+        url: /signup
+        buttonText: Get started
+  section2:
+    title: Pricing
+    subtitle: Only the best for your best friend
+    Tiles:
+      - title: Hardware
+        icon: hardware
+        text: $39.99, just the hardware you need, nothing more - lightweight and safe to use
+        url: /shop
+        buttonText: Buy Now
+      - title: Lite Plan
+        icon: lite
+        text: $0.99/month, get all the tracking data at an affordable price for your best friend
+        url: /signup
+        buttonText: Get started
+      - title: Premium Plan
+        icon: full
+        text: $2.99/month, get tracking, health and safety statistics, without breaking the bank
+        url: /signup
+        buttonText: Get started
+  section3:
+    title: Online Dashboard
+    subtitle: Incase you don't have your phone handy
+    image: dashboardMockup.png
+    buttonText: Dashboard Guide
+    buttonLink: /docs/dashboard
+  section4:
+    title: App
+    subtitle: Built for cross-platform using Flutter
+    image: appMockup.png
+    buttonText: App Guide
+    buttonLink: /docs/app
+  section5:
+    title: Reviews
+    subtitle: Our users love it!
+    clients:
+      - name: Linda W.
+        quote: Sometimes my dog likes to chase after birds in the neighborhood, this gives me peace of mind that he's safe.
+        job: Verified Buyer
+        img: 1
+      - name: James T.
+        quote: The battery life is insane. Alerts usually within a minute and accurate enough location.
+        job: Verified Buyer
+        img: 2
+      - name: David L.
+        quote: With this, you never need to worry about it being charged. Had it for weeks and it's still half full.
+        job: Early Tester
+        img: 3
+  footer:
+    logo: logo.png
+    quicklinks:
+      column1:
+        title: "Product"
+        links:
+          - text: Discover features
+            link: /#Features
+          - text: Check pricing
+            link: /#Pricing
+          - text: Read the reviews
+            link: /#Reviews
+      column2:
+        title: "Docs"
+        links:
+          - text: Quickstart guide
+            link: /docs/quickstart
+          - text: App guide
+            link: /docs/app
+          - text: Dashboard guide
+            link: /docs/dashboard
+      column3:
+        title: "Blog"
+        links:
+          - text: Why Barkr
+            link: /blog/why
+          - text: Who we are
+            link: /blog/about
+          - text: Contact us
+            link: /blog/contact
+    socialmediatitle: Follow Us / More Info
+    socialmedia:
+      - link: https://github.com/LEG-Industries/ELEC60013-ES-CW1-Website
+        icon: github
+      - link: https://facebook.com/#
+        icon: facebook
+      - link: https://instagram.com/#
+        icon: instagram
+      - link: https://twitter.com/#
+        icon: twitter
