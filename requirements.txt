@@ -1,0 +1,8 @@
+colorzero==2.0
+gpiozero==1.6.2
+paho-mqtt==1.6.1
+python-dateutil==2.8.2
+PyYAML==6.0
+RPi.GPIO==0.7.1
+six==1.16.0
+smbus2==0.4.1
